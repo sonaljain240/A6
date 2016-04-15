@@ -1,4 +1,3 @@
-package assignment6;
 
 public class Seat {
 	public static String[] rowLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", 
@@ -38,5 +37,7 @@ public class Seat {
 	public void setSeatNumber(int seatNumber) {
 		this.seatNumber = seatNumber;
 	}
+
+	public String getSeatName() { return this.seatLetter + "" + this.seatNumber;}
 	
 }

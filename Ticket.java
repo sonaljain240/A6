@@ -1,4 +1,3 @@
-package assignment6;
 
 import java.util.ArrayList;
 
