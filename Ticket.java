@@ -1,3 +1,5 @@
+package assignment6;
+
 
 import java.util.ArrayList;
 
@@ -37,75 +39,31 @@ public class Ticket {
 	{
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
-		//handle rows A_B
 		int j = 0;
-		while(j < 2)
+		while(j < 26)
 		{
-			String[] row = {"A", "B"};
-			int[] seatNumbersAtoB = Seat.seatPriorityAtoB;
+			String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", 
+					"M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+			int[] seatNumbersAtoZ = Seat.seatPriorityAtoZ;
 
-			for(int i = 0; i < seatNumbersAtoB.length; i++)
+			for(int i = 0; i < seatNumbersAtoZ.length; i++)
 			{
 				Seat mySeat;
-				mySeat = new Seat(row[j], seatNumbersAtoB[i]);
-
+				if(seatNumbersAtoZ[i] > 107 && seatNumbersAtoZ[i] < 122){
+					mySeat = new Seat(row[j], seatNumbersAtoZ[i], Seat.TYPE_MIDDLE);
+				}
+				else if(seatNumbersAtoZ[i] <= 107 ){
+					mySeat = new Seat(row[j], seatNumbersAtoZ[i], Seat.TYPE_LEFT);
+				}
+				else{
+					mySeat = new Seat(row[j], seatNumbersAtoZ[i], Seat.TYPE_RIGHT);
+				}
 				Ticket myTicket = new Ticket(mySeat, true);
 				tickets.add(myTicket);
 			}
 
 			j++;
 		}
-
-		//handle rows C-X
-		j = 0;
-		while(j < 22)
-		{
-			String[] row = {"C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X"};
-			int[] seatNumbersCtoX = Seat.seatPriorityCtoX;
-
-			for(int i = 0; i < seatNumbersCtoX.length; i++)
-			{
-				Seat mySeat;
-				mySeat = new Seat(row[j], seatNumbersCtoX[i]);
-
-				Ticket myTicket = new Ticket(mySeat, true);
-				tickets.add(myTicket);
-			}
-
-			j++;
-		}
-
-		//handle rows Y-Z
-		j = 0;
-		while(j < 2)
-		{
-			String[] row = {"Y", "Z"};
-			int[] seatNumbersYtoZ = Seat.seatPriorityYtoZ;
-
-			for(int i = 0; i < seatNumbersYtoZ.length; i++)
-			{
-				Seat mySeat;
-				mySeat = new Seat(row[j], seatNumbersYtoZ[i]);
-
-				Ticket myTicket = new Ticket(mySeat, true);
-				tickets.add(myTicket);
-			}
-
-			j++;
-		}
-
-		//handle row AA
-		int[] seatNumbersAA = Seat.seatPriorityAA;
-		for(int i = 0; i < seatNumbersAA.length; i++)
-		{
-			Seat mySeat;
-
-			mySeat = new Seat("AA", seatNumbersAA[i]);
-
-			Ticket myTicket = new Ticket(mySeat, true);
-			tickets.add(myTicket);
-		}
-
 
 		return tickets;
 	}
@@ -126,7 +84,7 @@ public class Ticket {
 	
 	public String toString()
 	{
-		return this.mySeat.getSeatLetter() + this.mySeat.getSeatNumber();
+		return this.mySeat.getSeatLetter() + this.mySeat.getSeatNumber() + this.mySeat.getSeatType();
 	}
 
 

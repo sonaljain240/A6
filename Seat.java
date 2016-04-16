@@ -1,25 +1,28 @@
+package assignment6;
+
 
 public class Seat {
-	public static String[] rowLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", 
-			"M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA"};
+	public static String[] rowLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", 
+			"M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-	public static int[] seatPriorityCtoX = {114, 115, 113, 116, 112, 117, 111, 118, 110, 119, 109, 120, 
-			108, 121, 107, 122, 106, 123, 105, 124, 104, 125, 103, 126,
-			102, 127, 101, 128};
+	public static int[] seatPriorityAtoZ = {114, 115, 113, 116, 112, 117, 111, 118, 110, 119, 109, 120, 
+			108, 121, 107, 122, 106, 123, 105, 124, 104, 125, 103, 126, 102, 127, 101, 128};
 
-	public static int[] seatPriorityAtoB = {114, 115, 113, 116, 112, 117, 111, 118, 110, 119, 109, 120, 
-			108, 121, 122, 123, 124, 125, 126, 127, 128};
-
-	public static int[] seatPriorityYtoZ = {107, 122, 106, 123, 105, 124, 104, 125, 103, 126, 102, 127, 101, 128};
-	
-	public static int[] seatPriorityAA = {118, 127, 117, 116, 104, 103, 102, 101, 128};
 	
 	private String seatLetter;
 	private int seatNumber;
+	private String seatType;
 	
-	public Seat(String letter, int number){
+	final static String TYPE_MIDDLE = "M";
+	final static String TYPE_LEFT = "HL";
+	final static String TYPE_RIGHT = "HR";
+	
+
+	
+	public Seat(String letter, int number, String type){
 		this.seatLetter = letter;
 		this.seatNumber = number;
+		this.seatType = type;
 	}
 
 	public String getSeatLetter() {
@@ -37,7 +40,16 @@ public class Seat {
 	public void setSeatNumber(int seatNumber) {
 		this.seatNumber = seatNumber;
 	}
+	
+	public String getSeatType() {
 
-	public String getSeatName() { return this.seatLetter + "" + this.seatNumber;}
+		return seatType;
+	}
+
+	public void setSeatType(String type) {
+		this.seatType = type;
+	}
+
+	public String getSeatName() { return this.seatLetter + "" + this.seatNumber + "" + this.seatType;}
 	
 }

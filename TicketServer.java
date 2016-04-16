@@ -1,3 +1,5 @@
+package assignment6;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -41,7 +43,7 @@ class ThreadedTicketServer implements Runnable {
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-			Seat s = Ticket.getBestTicket().getMySeat();
+			Seat s = Ticket.getBestTicket(tickets).getMySeat();
 			out.println(s.getSeatName());
 		} catch (IOException e) {
 			e.printStackTrace();
