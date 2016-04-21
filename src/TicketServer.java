@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 public class TicketServer {
 	static int PORT = 2222;
 	// EE422C: no matter how many concurrent requests you get,
@@ -26,26 +28,50 @@ class ThreadedTicketServer implements Runnable {
 	String threadname = "X";
 	String testcase;
 	TicketClient sc;
-	ArrayList<Ticket> tickets = new ArrayList<>();
+	ArrayList<String> clients;
+	Theatre bates;
 
 	public ThreadedTicketServer() {
 		super();
-		tickets = Ticket.createTickets();
+//		tickets = Ticket.createTickets();
+		bates = new Theatre();
+		clients = new ArrayList<>();
 	}
 
 	public void run() {
 		ServerSocket serverSocket;
 		try {
+			String a = "";
 			serverSocket = new ServerSocket(TicketServer.PORT);
-			Socket clientSocket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-			Seat s = Ticket.getBestTicket(tickets).getMySeat();
-			out.println(s.getSeatName());
+			do {
+				Socket clientSocket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+	
+				String clientRequest = in.readLine();
+				if(clientRequest.equals("client done")) {
+					clientRequest = in.readLine();
+					clients.remove(find(clientRequest));
+				} else if(find(clientRequest) < 0) {
+					clients.add(clientRequest); 
+				}
+				
+				a = bates.getNextSeat();
+				out.println(a);
+				clientSocket.close();
+			} while(!a.equals("no more seats") || !clients.isEmpty());
+			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public int find(String s) {
+		for(int i = 0; i < clients.size(); i ++) {
+			if(clients.get(i).equals(s))
+				return i;
+		}
+		return -1;
 	}
 }
